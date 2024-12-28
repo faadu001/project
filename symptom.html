@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healytics - Multi-Select Dropdown</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-teal-100 to-green-100 h-full">
+    <div class="container mx-auto px-4 h-full flex flex-col justify-center items-center">
+        <div id="health-icon" class="text-teal-500 text-8xl mb-8">
+            <i class="fas fa-heartbeat"></i>
+        </div>
+
+        <div class="p-8 w-full max-w-md bg-white rounded-lg shadow-md">
+            <h2 id="form-title" class="text-3xl font-bold text-gray-800 mb-4">Select Your Symptoms</h2>
+            <form id="symptomForm">
+                <div class="mb-4 relative">
+                    <label for="multiSelectDropdown" class="block text-gray-700 text-sm font-bold mb-2">Select symptoms:</label>
+                    <div id="multiSelectDropdown" class="relative">
+                        <button type="button" class="w-full bg-white border rounded py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-300" id="dropdownToggle">
+                            Select Symptoms
+                            <i class="fas fa-chevron-down ml-2 fade-in-up fade"></i>
+                        </button>
+                        <div id="dropdownMenu" class="hidden absolute z-10 w-full bg-white border mt-1 rounded shadow-md max-h-60 overflow-y-auto">
+                            <div class="p-2">
+                                <input id="dropdownSearch" type="text" placeholder="Search symptoms..." class="w-full py-2 px-3 border rounded text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+                            </div>
+                            <div id="dropdownOptions" class="p-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="selectedSymptomsDiv" class="mb-4">
+                </div>
+                <div class="flex items-center justify-between">
+                    <a href="./result.html" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-300 transform hover:scale-105">
+                        Analyze Symptoms
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const symptomsArray = [
+  "abdominal_pain",
+  "abnormal_menstruation",
+  "acute_liver_failure",
+  "altered_sensorium",
+  "anxiety",
+  "back_pain",
+  "belly_pain",
+  "blackheads",
+  "bladder_discomfort",
+  "bloody_stool",
+  "burning_micturition",
+  "chest_pain",
+  "chills",
+  "cold_hands_and_feets",
+  "coma",
+  "continuous_feel_of_urine",
+  "continuous_sneezing",
+  "cramps",
+  "depression",
+  "diarrhoea",
+  "dizziness",
+  "distention_of_abdomen",
+  "drying_and_tingling_lips",
+  "excessive_hunger",
+  "extra_marital_contacts",
+  "fainting",
+  "fatigue",
+  "fever",
+  "fluid_overload",
+  "foul_smell_of_urine",
+  "headache",
+  "hip_joint_pain",
+  "history_of_alcohol_consumption",
+  "increased_appetite",
+  "inflammation",
+  "irregular_sugar_level",
+  "irritability",
+  "joint_pain",
+  "knee_pain",
+  "lethargy",
+  "loss_of_appetite",
+  "loss_of_balance",
+  "loss_of_smell",
+  "low_fever",
+  "movement_stiffness",
+  "muscle_pain",
+  "muscle_weakness",
+  "mood_swings",
+  "nausea",
+  "nodal_skin_eruptions",
+  "obesity",
+  "pain_behind_the_eyes",
+  "pain_during_bowel_movements",
+  "pain_in_anal_region",
+  "palpitations",
+  "patches_in_throat",
+  "phlegm",
+  "polyuria",
+  "prominent_veins_on_calf",
+  "prognosis",
+  "red_sore_around_nose",
+  "red_spots_over_body",
+  "restlessness",
+  "runny_nose",
+  "scurring",
+  "skin_peeling",
+  "skin_rash",
+  "slurred_speech",
+  "small_dents_in_nails",
+  "spinning_movements",
+  "spotting_urination",
+  "stiff_neck",
+  "stomach_bleeding",
+  "stomach_pain",
+  "swelling_of_stomach",
+  "swollen_blood_vessels",
+  "swollen_legs",
+  "toxic_look_(typhos)",
+  "unsteadiness",
+  "vomiting",
+  "weakness_in_limbs",
+  "yellow_urine",
+  "yellow_crust_ooze",
+  "yellowing_of_eyes"
+];
+
+
+        const dropdownToggle = document.getElementById("dropdownToggle");
+        const dropdownMenu = document.getElementById("dropdownMenu");
+        const dropdownSearch = document.getElementById("dropdownSearch");
+        const dropdownOptions = document.getElementById("dropdownOptions");
+        const selectedSymptomsDiv = document.getElementById("selectedSymptomsDiv");
+        const form = document.getElementById("symptomForm");
+
+        let selectedSymptoms = new Set();
+
+        function formatSymptom(symptom) {
+            return symptom.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+        }
+
+        function populateDropdownOptions() {
+            dropdownOptions.innerHTML = symptomsArray.map(symptom => `
+                <div class="flex items-center py-1">
+                    <input type="checkbox" id="${symptom}" class="mr-2" data-symptom="${symptom}">
+                    <label for="${symptom}" class="text-gray-700">${formatSymptom(symptom)}</label>
+                </div>
+            `).join('');
+        }
+
+        function updateSelectedSymptoms() {
+            selectedSymptomsDiv.innerHTML = Array.from(selectedSymptoms).map(symptom => `
+                <div class="inline-block bg-teal-100 text-teal-800 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
+                    ${formatSymptom(symptom)}
+                    <button type="button" class="ml-2 text-teal-600 hover:text-teal-800" data-remove="${symptom}">×</button>
+                </div>
+            `).join('');
+
+            document.querySelectorAll("[data-remove]").forEach(button => {
+                button.addEventListener("click", () => {
+                    selectedSymptoms.delete(button.dataset.remove);
+                    updateSelectedSymptoms();
+                });
+            });
+        }
+
+        dropdownToggle.addEventListener("click", () => {
+            dropdownMenu.classList.toggle("hidden");
+        });
+
+        dropdownSearch.addEventListener("input", (e) => {
+            const searchValue = e.target.value.toLowerCase();
+            const filteredSymptoms = symptomsArray.filter(symptom => symptom.toLowerCase().includes(searchValue));
+            dropdownOptions.innerHTML = filteredSymptoms.map(symptom => `
+                <div class="flex items-center py-1">
+                    <input type="checkbox" id="${symptom}" class="mr-2" data-symptom="${symptom}" ${selectedSymptoms.has(symptom) ? 'checked' : ''}>
+                    <label for="${symptom}" class="text-gray-700">${formatSymptom(symptom)}</label>
+                </div>
+            `).join('');
+        });
+
+        dropdownOptions.addEventListener("change", (e) => {
+            const checkbox = e.target;
+            const symptom = checkbox.dataset.symptom;
+            if (checkbox.checked) {
+                selectedSymptoms.add(symptom);
+            } else {
+                selectedSymptoms.delete(symptom);
+            }
+            updateSelectedSymptoms();
+        });
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (selectedSymptoms.size === 0) {
+                alert("Please select at least one symptom.");
+                return;
+            }
+            console.log("Selected Symptoms:", Array.from(selectedSymptoms));
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!dropdownMenu.contains(e.target) && !dropdownToggle.contains(e.target)) {
+                dropdownMenu.classList.add("hidden");
+            }
+        });
+
+        populateDropdownOptions();
+
+        gsap.fromTo("#health-icon i", 
+            { scale: 0.8 }, 
+            { 
+                scale: 1, 
+                repeat: -1, 
+                yoyo: true, 
+                duration: 0.6, 
+                ease: "power1.inOut" 
+            });
+    </script>
+</body>
+</html>

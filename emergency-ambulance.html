@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Ambulance Services</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #e74c3c;
+            --secondary: #2ecc71;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+        }
+
+        body {
+            background-color: #f5f6fa;
+        }
+
+        .navbar {
+            background: var(--dark);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .logo i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .location-header {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            animation: slideInDown 0.5s ease-out;
+        }
+
+        .location-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .location-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .ambulance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .ambulance-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ambulance-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .status-available {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-busy {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .provider-name {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .timing-info {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .timing-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .book-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .book-btn:hover {
+            background: #c0392b;
+        }
+
+        .contact-info {
+            margin: 1rem 0;
+            padding: 0.5rem 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .timing-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .emergency-pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <i class="fas fa-ambulance"></i>
+                Emergency Services
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="location-header">
+            <div class="location-info">
+                <i class="fas fa-location-dot location-icon"></i>
+                <div>
+                    <h2>Nearby Ambulances</h2>
+                    <p>Current Location: 123 Emergency Street, Medical District</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="ambulance-grid" id="ambulanceGrid">
+            
+        </div>
+    </div>
+
+    <script>
+        const mockAmbulances = [
+            {
+                id: 1,
+                provider: "Rapid Response Ambulance",
+                status: "available",
+                arrivalTime: "5 mins",
+                hospitalTime: "12 mins",
+                contact: "+1 (555) 123-4567",
+                distance: "1.2 km"
+            },
+            {
+                id: 2,
+                provider: "City Medical Transport",
+                status: "available",
+                arrivalTime: "8 mins",
+                hospitalTime: "15 mins",
+                contact: "+1 (555) 234-5678",
+                distance: "2.1 km"
+            },
+            {
+                id: 3,
+                provider: "Emergency Care Unit",
+                status: "busy",
+                arrivalTime: "15 mins",
+                hospitalTime: "20 mins",
+                contact: "+1 (555) 345-6789",
+                distance: "3.5 km"
+            }
+        ];
+
+        function createAmbulanceCard(ambulance) {
+            return `
+                <div class="ambulance-card">
+                    <span class="status-badge ${ambulance.status === 'available' ? 'status-available' : 'status-busy'}">
+                        ${ambulance.status === 'available' ? 'Available' : 'Busy'}
+                    </span>
+                    <h3 class="provider-name">${ambulance.provider}</h3>
+                    <div class="timing-info">
+                        <div class="timing-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Arrival: ${ambulance.arrivalTime}</span>
+                        </div>
+                        <div class="timing-item">
+                            <i class="fas fa-hospital"></i>
+                            <span>To Hospital: ${ambulance.hospitalTime}</span>
+                        </div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="timing-item">
+                            <i class="fas fa-phone"></i>
+                            <span>${ambulance.contact}</span>
+                        </div>
+                        <div class="timing-item">
+                            <i class="fas fa-route"></i>
+                            <span>Distance: ${ambulance.distance}</span>
+                        </div>
+                    </div>
+                    <button class="book-btn ${ambulance.status === 'available' ? 'emergency-pulse' : ''}" 
+                            onclick="bookAmbulance('${ambulance.provider}')"
+                            ${ambulance.status === 'busy' ? 'disabled' : ''}>
+                        ${ambulance.status === 'available' ? 'Book Now' : 'Currently Busy'}
+                    </button>
+                </div>
+            `;
+        }
+
+        function bookAmbulance(provider) {
+            alert(`Booking confirmed with ${provider}. Emergency response team dispatched.`);
+        }
+
+        function updateAmbulances() {
+            const grid = document.getElementById('ambulanceGrid');
+            grid.innerHTML = mockAmbulances.map(createAmbulanceCard).join('');
+        }
+
+        updateAmbulances();
+
+        setInterval(() => {
+            mockAmbulances.forEach(ambulance => {
+                const randomChange = Math.floor(Math.random() * 3) - 1;
+                const currentTime = parseInt(ambulance.arrivalTime);
+                ambulance.arrivalTime = `${Math.max(1, currentTime + randomChange)} mins`;
+            });
+            updateAmbulances();
+        }, 5000);
+    </script>
+</body>
+</html>

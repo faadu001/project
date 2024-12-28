@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Service Subscriptions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            color: #2d3436;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .subtitle {
+            color: #636e72;
+            font-size: 1.2rem;
+            animation: fadeIn 1s ease-out delay-0.5s;
+        }
+
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f1f1;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            color: #2d3436;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            color: #0984e3;
+            font-weight: bold;
+        }
+
+        .plan-price span {
+            font-size: 1rem;
+            color: #636e72;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features li {
+            margin-bottom: 1rem;
+            color: #636e72;
+            display: flex;
+            align-items: center;
+        }
+
+        .features li::before {
+            content: "✓";
+            color: #00b894;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .subscribe-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: #0984e3;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .subscribe-btn:hover {
+            background: #0766b0;
+        }
+
+        .premium {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium::before {
+            content: "Most Popular";
+            position: absolute;
+            top: 1.5rem;
+            right: -4rem;
+            background: #00b894;
+            color: white;
+            padding: 0.5rem 4rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .plans-container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Health Service Plans</h1>
+            <p class="subtitle">Choose the perfect plan for your health journey</p>
+        </header>
+
+        <div class="plans-container">
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h2 class="plan-name">Basic Plan</h2>
+                    <div class="plan-price">$29<span>/month</span></div>
+                </div>
+                <ul class="features">
+                    <li>General consultation</li>
+                    <li>Access to health tips</li>
+                    <li>5 online doctor visits per month</li>
+                    <li>24/7 support</li>
+                </ul>
+                <button class="subscribe-btn" onclick="window.location.href='#payment'">Subscribe Now</button>
+            </div>
+
+            <div class="plan-card premium">
+                <div class="plan-header">
+                    <h2 class="plan-name">Moderate Plan</h2>
+                    <div class="plan-price">$59<span>/month</span></div>
+                </div>
+                <ul class="features">
+                    <li>All Basic Plan features</li>
+                    <li>Personalized diet plans</li>
+                    <li>Fitness tracking</li>
+                    <li>Unlimited online doctor visits</li>
+                    <li>Monthly health reports</li>
+                </ul>
+                <button class="subscribe-btn" onclick="window.location.href='#payment'">Subscribe Now</button>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h2 class="plan-name">Premium Plan</h2>
+                    <div class="plan-price">$99<span>/month</span></div>
+                </div>
+                <ul class="features">
+                    <li>All Moderate Plan features</li>
+                    <li>Personal health coaching</li>
+                    <li>Advanced diagnostics</li>
+                    <li>Priority specialist access</li>
+                    <li>Family health tracking</li>
+                    <li>Quarterly health assessments</li>
+                </ul>
+                <button class="subscribe-btn" onclick="window.location.href='#payment'">Subscribe Now</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

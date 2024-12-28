@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - HealthCare</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #4caf50, #81c784);
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            overflow: hidden;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header {
+            background: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .form {
+            padding: 20px;
+        }
+
+        .form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form input:focus {
+            border-color: #4caf50;
+            outline: none;
+        }
+
+        .form button {
+            width: 100%;
+            padding: 10px;
+            background: #4caf50;
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form button:hover {
+            background: #388e3c;
+        }
+
+        .animated-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: move 8s linear infinite;
+        }
+
+        .animated-circle:nth-child(1) {
+            width: 120px;
+            height: 120px;
+            top: -30px;
+            left: -30px;
+            animation-duration: 10s;
+        }
+
+        .animated-circle:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            bottom: -20px;
+            right: -20px;
+            animation-duration: 7s;
+        }
+
+        .animated-circle:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            bottom: -50px;
+            left: -50px;
+            animation-duration: 12s;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(30px, 30px) rotate(180deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="animated-circle"></div>
+    <div class="animated-circle"></div>
+    <div class="animated-circle"></div>
+
+    <div class="container">
+        <div class="header">Welcome to HealthCare</div>
+        <div class="form">
+            <input type="text" placeholder="Username" required>
+            <input type="password" placeholder="Password" required>
+            <button>Login</button>
+        </div>
+    </div>
+</body>
+</html>

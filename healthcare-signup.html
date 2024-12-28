@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Signup</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #67DEB3, #4ac29a);
+            padding: 2rem 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .background-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #67DEB3, #4ac29a);
+            opacity: 0.7;
+            animation: gradientAnimation 8s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientAnimation {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+            100% { opacity: 0.3; }
+        }
+
+        .signup-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+            animation: containerAppear 1s ease-out;
+        }
+
+        @keyframes containerAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: #67DEB3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            animation: pulseAnimation 2s infinite;
+        }
+
+        @keyframes pulseAnimation {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(103, 222, 179, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(103, 222, 179, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(103, 222, 179, 0);
+            }
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .title {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .input-group input, 
+        .input-group select, 
+        .input-group textarea {
+            width: 100%;
+            padding: 1rem 1rem 1rem 2.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group textarea {
+            padding-left: 1rem;
+            height: 100px;
+            resize: vertical;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: #67DEB3;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(103, 222, 179, 0.2);
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #95a5a6;
+            transition: color 0.3s ease;
+        }
+
+        .input-group input:focus + i,
+        .input-group select:focus + i {
+            color: #67DEB3;
+        }
+
+        .gender-group {
+            display: flex;
+            gap: 1rem;
+            padding: 0.5rem;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .signup-button {
+            grid-column: 1 / -1;
+            padding: 1rem;
+            background: #67DEB3;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .signup-button:hover {
+            background: #4ac29a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(103, 222, 179, 0.4);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .signup-container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="signup-container">
+        <div class="signup-header">
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <h1 class="title">HealthCare Plus</h1>
+            <p class="subtitle">Create your health account</p>
+        </div>
+
+        <form id="signupForm" class="form-grid">
+            <div class="input-group">
+                <input type="text" id="firstName" placeholder="First Name" required>
+                <i class="fas fa-user"></i>
+                <div class="error-message">Please enter your first name</div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="lastName" placeholder="Last Name" required>
+                <i class="fas fa-user"></i>
+                <div class="error-message">Please enter your last name</div>
+            </div>
+
+            <div class="input-group">
+                <input type="tel" id="phone" placeholder="Phone Number" required>
+                <i class="fas fa-phone"></i>
+                <div class="error-message">Please enter a valid phone number</div>
+            </div>
+
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email Address" required>
+                <i class="fas fa-envelope"></i>
+                <div class="error-message">Please enter a valid email address</div>
+            </div>
+
+            <div class="input-group">
+                <input type="number" id="age" placeholder="Age" required min="0" max="150">
+                <i class="fas fa-calendar"></i>
+                <div class="error-message">Please enter a valid age</div>
+            </div>
+
+            <div class="input-group">
+                <select id="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <i class="fas fa-venus-mars"></i>
+                <div class="error-message">Please select your gender</div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="country" placeholder="Country" required>
+                <i class="fas fa-globe"></i>
+                <div class="error-message">Please enter your country</div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="state" placeholder="State" required>
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="error-message">Please enter your state</div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="city" placeholder="City" required>
+                <i class="fas fa-city"></i>
+                <div class="error-message">Please enter your city</div>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="pincode" placeholder="Pincode" required>
+                <i class="fas fa-map-pin"></i>
+                <div class="error-message">Please enter a valid pincode</div>
+            </div>
+
+            <div class="input-group full-width">
+                <textarea id="address" placeholder="Full Address" required></textarea>
+                <div class="error-message">Please enter your full address</div>
+            </div>
+
+            <button type="submit" class="signup-button">Create Account</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            const inputs = this.querySelectorAll('input, select, textarea');
+
+            inputs.forEach(input => {
+                const errorMessage = input.nextElementSibling?.nextElementSibling;
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#e74c3c';
+                    if (errorMessage) errorMessage.style.display = 'block';
+                    shakeElement(input);
+                } else {
+                    input.style.borderColor = '#67DEB3';
+                    if (errorMessage) errorMessage.style.display = 'none';
+                }
+
+                if (input.type === 'email' && input.value) {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(input.value)) {
+                        isValid = false;
+                        input.style.borderColor = '#e74c3c';
+                        if (errorMessage) errorMessage.style.display = 'block';
+                        shakeElement(input);
+                    }
+                }
+
+                if (input.type === 'tel' && input.value) {
+                    const phonePattern = /^\d{10}$/;
+                    if (!phonePattern.test(input.value)) {
+                        isValid = false;
+                        input.style.borderColor = '#e74c3c';
+                        if (errorMessage) errorMessage.style.display = 'block';
+                        shakeElement(input);
+                    }
+                }
+            });
+
+            if (isValid) {
+                const button = this.querySelector('.signup-button');
+                button.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Creating Account...';
+                button.disabled = true;
+
+                setTimeout(() => {
+                    button.innerHTML = '<i class="fas fa-check"></i> Account Created!';
+                    button.style.backgroundColor = '#2ecc71';
+                    
+                    setTimeout(() => {
+                        alert('Account created successfully! Welcome to HealthCare Plus!');
+                    }, 1000);
+                }, 2000);
+            }
+        });
+
+        function shakeElement(element) {
+            element.style.animation = 'none';
+            element.offsetHeight;
+            element.style.animation = 'shake 0.5s ease-in-out';
+        }
+    </script>
+</body>
+</html>

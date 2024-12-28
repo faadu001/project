@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Personalized Workouts</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        footer{
+            background-color: #CEFBF0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500">
+        <div class="absolute inset-0 bg-grid-white/[0.05] bg-[size:20px_20px]"></div>
+        <div class="relative container mx-auto px-4 py-16 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">Your Personalized Workout Plan</h1>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 -mt-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-all duration-300">
+                <div class="h-48 bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center">
+                    <i class="fas fa-swimming-pool text-6xl text-white"></i>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">Swimming</h3>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Low Impact</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Perfect for joint health and full-body workout with minimal stress on your body.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-clock w-5 mr-2"></i>
+                            <span>30-45 minutes</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-fire w-5 mr-2"></i>
+                            <span>Medium Intensity</span>
+                        </div>
+                    </div>
+                    <button class="w-full mt-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-3 rounded-xl hover:opacity-90 transition-opacity">
+                        View Workout Details
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-all duration-300">
+                <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-600 flex items-center justify-center">
+                    <i class="fas fa-yoga text-6xl text-white"></i>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">Gentle Yoga</h3>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Flexibility</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Improve flexibility and reduce stress with gentle stretching and breathing exercises.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-clock w-5 mr-2"></i>
+                            <span>20-30 minutes</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-fire w-5 mr-2"></i>
+                            <span>Low Intensity</span>
+                        </div>
+                    </div>
+                    <button class="w-full mt-6 bg-gradient-to-r from-purple-500 to-pink-600 text-white py-3 rounded-xl hover:opacity-90 transition-opacity">
+                        View Workout Details
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-all duration-300">
+                <div class="h-48 bg-gradient-to-br from-green-400 to-teal-600 flex items-center justify-center">
+                    <i class="fas fa-dumbbell text-6xl text-white"></i>
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">Strength Training</h3>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Strength</span>
+                    </div>
+                    <p class="text-gray-600 mb-4">Build muscle and improve bone density with targeted resistance exercises.</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-clock w-5 mr-2"></i>
+                            <span>45-60 minutes</span>
+                        </div>
+                        <div class="flex items-center text-gray-700">
+                            <i class="fas fa-fire w-5 mr-2"></i>
+                            <span>High Intensity</span>
+                        </div>
+                    </div>
+                    <button class="w-full mt-6 bg-gradient-to-r from-green-500 to-teal-600 text-white py-3 rounded-xl hover:opacity-90 transition-opacity">
+                        View Workout Details
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+            <h2 class="text-2xl font-bold mb-6">Your Weekly Schedule</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div class="p-4 border border-gray-200 rounded-xl">
+                    <div class="font-semibold text-gray-800 mb-2">Monday</div>
+                    <div class="text-sm text-gray-600">Swimming</div>
+                    <div class="text-xs text-gray-500">30 minutes</div>
+                </div>
+                <div class="p-4 border border-gray-200 rounded-xl">
+                    <div class="font-semibold text-gray-800 mb-2">Wednesday</div>
+                    <div class="text-sm text-gray-600">Yoga</div>
+                    <div class="text-xs text-gray-500">20 minutes</div>
+                </div>
+                <div class="p-4 border border-gray-200 rounded-xl">
+                    <div class="font-semibold text-gray-800 mb-2">Friday</div>
+                    <div class="text-sm text-gray-600">Strength Training</div>
+                    <div class="text-xs text-gray-500">45 minutes</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-dark p-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2">Stay Connected</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-gray-600 transition-colors">
+                            <i class="fab fa-youtube text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="text-center md:text-right">
+                    <button class="w-full px-14 mt-6 bg-gradient-to-r from-black to-gray-800 text-white py-3 rounded-xl hover:opacity-90 transition-opacity">
+                        Download Workout Plan
+                    </button>                    
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

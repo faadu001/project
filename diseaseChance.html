@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chances of Diseases</title>
+    <style>
+        :root {
+            --primary-color: #14B8A6; 
+            --secondary-color: #D2FBEE; 
+            --success-color: #22c55e; 
+            --warning-color: #f97316; 
+            --background-color: #f8fafc; 
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .disease-predictions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .prediction-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s;
+        }
+
+        .prediction-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .prediction-card.hypothetical {
+            border: 2px solid var(--primary-color);
+        }
+
+        .prediction-card.hypothetical .percentage {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .prediction-card.not-hypothetical {
+            border: 2px solid var(--secondary-color);
+        }
+
+        .prediction-card.not-hypothetical .percentage {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .doctor-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+        }
+
+        .doctor-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .doctor-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .doctor-card {
+            background: var(--background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .doctor-card.selected {
+            border: 2px solid var(--primary-color);
+            background: white;
+        }
+        .percentage{
+            font-size: 3rem;
+            font-weight: bold;
+            color: #146d66;
+        }
+        .percentage2{
+            color: #34b4a9;
+        }
+        .doctor-name {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .doctor-specialization {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5em 1em;
+            background-color: #14B8A6; 
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1em;
+        }
+
+        .btn:hover {
+            background-color: #0f766e;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .prediction-card {
+                padding: 1.5rem;
+            }
+
+            .doctor-card {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Chances of Diseases</h1>
+            <p>Based on your symptoms analysis</p>
+        </header>
+
+        <div class="disease-predictions">
+            <div class="prediction-card most-preferred">
+                <h2>Most Likely Condition</h2>
+                <div class="percentage">78%</div>
+                <p>Seasonal Allergies</p>
+                <p>Common symptoms: Sneezing, runny nose, itchy eyes</p>
+                <a href="./doctor.html" class="btn">Any help?</a>
+            </div>
+
+            <div class="prediction-card least-preferred">
+                <h2>Less Likely Condition</h2>
+                <div class="percentage percentage2">22%</div>
+                <p>Common Cold</p>
+                <p>Common symptoms: Cough, sore throat, mild fever</p>
+                <a href="./doctor.html" class="btn">Any help?</a>
+            </div>
+        </div>
+
+        <script>
+            const doctorCards = document.querySelectorAll('.doctor-card');
+
+            doctorCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    doctorCards.forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                });
+            });
+
+            const submitBtn = document.querySelector('.submit-btn');
+
+            submitBtn.addEventListener('click', () => {
+                const selectedDoctor = document.querySelector('.doctor-card.selected');
+                if (selectedDoctor) {
+                    const doctorName = selectedDoctor.querySelector('.doctor-name').textContent;
+                    alert(`Requesting consultation with ${doctorName}`);
+                } else {
+                    alert('Please select a doctor first');
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

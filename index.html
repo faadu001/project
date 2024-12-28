@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healytics - Disease Detection App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <script src="https://kit.fontawesome.com/d3102a8c95.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out',
+                        'fade-in-left': 'fadeInLeft 0.5s ease-out',
+                        'fade-in-right': 'fadeInRight 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeInLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(-10px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        fadeInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(10px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 h-full">
+    <header class="bg-white shadow-md">
+        <nav class="container flex justify-between items-center w-[92%] mx-auto">
+            <div class="md:text-4xl py-3 font-bold text-teal-600 animate-fade-in-left sm:text-1xl">Healytics</div>
+            <ion-icon onclick="onToggleMenu(this)" name="menu" class="text-3xl cursor-pointer md:hidden"></ion-icon>
+
+            <div class="nav-links hidden md:flex md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 top-[60px] md:w-auto w-full flex-col md:flex-row md:items-center md:gap-[4vw] gap-8 md:px-0 px-5">
+                <ul class="flex flex-col md:flex-row md:items-center md:gap-[4vw] gap-8">
+                    <li><a class="hover:text-teal-600" href="#">About</a></li>
+                    <li><a class="hover:text-teal-600" href="#">Services</a></li>
+                    <li><a class="hover:text-teal-600" href="#">Support</a></li>
+                </ul>
+
+                <div class="icon-features flex md:hidden flex-col items-start gap-4 mt-6">
+                    <a href="./enhanced-hospital-finder.html" class="text-gray-700 group hover:text-teal-600 transition duration-300 flex items-center">
+                        <i class="fa-solid fa-bed mr-2"></i> Bed Availability
+                    </a>
+                    <a href="./doctor-finder.html" class="text-gray-700 group hover:text-teal-600 transition duration-300 flex items-center">
+                        <i class="fas fa-user-md mr-2"></i> Doctor Status
+                    </a>
+                    <a href="./emergency-ambulance.html" class="text-gray-700 group hover:text-teal-600 transition duration-300 flex items-center">
+                        <i class="fa-solid fa-truck-medical mr-2"></i> Ambulance
+                    </a>
+                </div>
+            </div>
+
+            <div class="extra-feat hidden md:flex gap-4 items-center">
+                <div class="icon-features flex items-center gap-10">
+                    <a href="./enhanced-hospital-finder.html" class="text-gray-700 group hover:text-teal-600 transition duration-300 flex flex-col justify-center items-center">
+                        <div class="box hidden absolute top-[35px] group-hover:block ease-in">bed-availability</div>
+                        <i class="fa-solid fa-bed group-hover:mb-2 duration-300 ease-in-out"></i>
+                    </a>
+                    <a href="./doctor-finder.html" class="text-gray-700 group hover:text-teal-600 transition duration-300 flex flex-col justify-center items-center">
+                        <div class="box hidden absolute top-[35px] group-hover:block ease-in">doctor status</div>
+                        <i class="fas fa-user-md group-hover:mb-2 duration-300 ease-in-out"></i>
+                    </a>
+                    <a href="./emergency-ambulance.html" class="text-gray-700 group hover:text-teal-600 transition duration-300 relative flex flex-col justify-center items-center">
+                        <div class="box hidden absolute top-[17px] group-hover:block ease-in">ambulance</div>
+                        <i class="fa-solid fa-truck-medical group-hover:mb-2 duration-300 ease-in-out"></i>
+                    </a>
+                </div>
+                <div class="sign flex items-center ml-[100px]">
+                    <a href="./healthcare-signup.html" class="px-3 rounded-full transition duration-300 transform hover:scale-105 animate-fade-in-up" style="animation-delay: 0.5s;">
+                        <div class="flex items-center gap-6">
+                            <button class="text-teal-600">Sign Up</button>
+                        </div>
+                    </a>
+                    <a href="./subscription-page.html" class="text-yellow-400 px-3 rounded-full transition duration-300 transform hover:scale-105 animate-fade-in-up" style="animation-delay: 0.5s;">
+                        <i class="fa-solid fa-crown ml-4"></i>
+                        <div class="text-[10px] text-teal-600 underline">Subscription</div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="h-[calc(100vh-64px)]">
+        <section class="bg-gradient-to-r from-teal-500 to-green-400 text-white h-full flex items-center">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-10 md:mb-0 animate-fade-in-up">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Welcome to Healytics</h1>
+                        <p class="text-xl mb-6">Your intelligent companion for early disease detection and health monitoring.</p>
+                        <a href="symptom.html" class="bg-white text-teal-700 font-bold py-3 px-6 rounded-full hover:bg-teal-100 transition duration-300 transform hover:scale-105">Get Started</a>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="h-1/2 w-3/5">
+                            <img src="./images/firstsec.jpeg" alt="Healytics App" class="rounded-lg shadow-xl w-full h-full object-cover transition duration-300 transform hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8 animate-fade-in-up">How Healytics Works</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-teal-50 p-6 rounded-lg shadow-md animate-fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="text-teal-600 text-4xl mb-4">1</div>
+                        <h3 class="text-xl font-semibold mb-2">Input Symptoms</h3>
+                        <p class="text-gray-600">Start by entering your symptoms in our detailed input form.</p>
+                    </div>
+                    <div class="bg-teal-50 p-6 rounded-lg shadow-md animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="text-teal-600 text-4xl mb-4">2</div>
+                        <h3 class="text-xl font-semibold mb-2">Choose Category</h3>
+                        <p class="text-gray-600">Select from diseases, remedies, diets, or workouts for tailored results.</p>
+                    </div>
+                    <div class="bg-teal-50 p-6 rounded-lg shadow-md animate-fade-in-up" style="animation-delay: 0.3s;">
+                        <div class="text-teal-600 text-4xl mb-4">3</div>
+                        <h3 class="text-xl font-semibold mb-2">Get Results</h3>
+                        <p class="text-gray-600">Receive personalized information based on your inputs and selection.</p>
+                    </div>
+                    <div class="bg-teal-50 p-6 rounded-lg shadow-md animate-fade-in-up" style="animation-delay: 0.4s;">
+                        <div class="text-teal-600 text-4xl mb-4">4</div>
+                        <h3 class="text-xl font-semibold mb-2">Take Action</h3>
+                        <p class="text-gray-600">Follow the provided guidance to improve your health and well-being.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="symptom.html" class="bg-teal-600 text-white font-bold py-3 px-6 rounded-full hover:bg-teal-700 transition duration-300 transform hover:scale-105 animate-fade-in-up" style="animation-delay: 0.5s;">
+                        Get Started Now
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const navLinks = document.querySelector(".nav-links");
+
+        function onToggleMenu(icon) {
+            icon.name = icon.name === "menu" ? "close" : "menu";
+            navLinks.classList.toggle("hidden");
+        }
+    </script>
+</body>
+</html>

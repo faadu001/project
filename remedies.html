@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Remedies</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body x-data="{
+    remedyDatabase: {
+        'Fungal infection': {
+            remedies: [
+                {
+                    name: 'Tea Tree Oil',
+                    description: 'Natural antifungal properties that combat various fungal infections',
+                    usage: 'Apply diluted oil to affected area 2-3 times daily',
+                    image: './images/teaTreeOil.jpg'
+                },
+                {
+                    name: 'Garlic Extract',
+                    description: 'Contains allicin which has antifungal properties',
+                    usage: 'Take as supplement or apply topically when diluted',
+                    image: './images/GarlicExtract.jpg'
+                }
+            ]
+        },
+        'Allergy': {
+            remedies: [
+                {
+                    name: 'Local Honey',
+                    description: 'Helps build immunity to local allergens',
+                    usage: '1-2 teaspoons daily',
+                    image: './images/honeycough.jpg'
+                },
+                {
+                    name: 'Nettle Tea',
+                    description: 'Natural antihistamine properties',
+                    usage: '2-3 cups daily during allergy season',
+                    image: './images/NettleTea.jpg'
+                }
+            ]
+        },
+        'GERD': {
+            remedies: [
+                {
+                    name: 'Ginger Root',
+                    description: 'Reduces inflammation and aids digestion',
+                    usage: 'Chew fresh ginger or drink as tea after meals',
+                    image: './images/GingerRoot.jpg'
+                },
+                {
+                    name: 'Apple Cider Vinegar',
+                    description: 'Helps balance stomach acid levels',
+                    usage: '1 tablespoon in water before meals',
+                    image: './images/appleCiderVinegar.jpg'
+                }
+            ]
+        }
+    },
+    getRemedies() {
+        // In practice, this would get the diagnosis from the previous page
+        // For demo, showing all remedies
+        return Object.values(this.remedyDatabase).flatMap(category => category.remedies);
+    }
+}">
+    <div class="min-h-screen bg-gray-50">
+        <header class="relative bg-gradient-to-r from-green-400 to-blue-500 text-white py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Natural Remedies for Common Ailments</h1>
+                <p class="text-xl mb-8">Discover simple and effective remedies curated just for you.</p>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-16 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <template x-for="remedy in getRemedies()" :key="remedy.name">
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+                        <img :src="remedy.image" :alt="remedy.name" class="w-full h-48 object-fill">
+                        <div class="p-6">
+                            <h3 x-text="remedy.name" class="text-xl font-semibold mb-2"></h3>
+                            <p x-text="remedy.description" class="text-gray-600 mb-4"></p>
+                            <div class="bg-green-50 p-3 rounded-lg">
+                                <p class="text-green-800">
+                                    <strong>Usage:</strong> <span x-text="remedy.usage"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

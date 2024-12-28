@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailored Dietary Plans</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary: #4ade80;
+            --secondary: #60a5fa;
+            --text: #1f2937;
+            --bg: #f0fdf4;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg), #eff6ff);
+            color: var(--text);
+        }
+
+        .header {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            color: #4b5563;
+        }
+
+        .filter-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .symptom-filter {
+            width: 100%;
+            max-width: 300px;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .symptom-filter:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .plan-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .plan-icon {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .plan-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-description {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+
+        .view-plan-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .view-plan-btn:hover {
+            background: #3b9f6c;
+        }
+
+        .nutrition-tips {
+            background: white;
+            padding: 4rem 1rem;
+            margin: 4rem 0;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tip-card {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 0.5rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, #4ade8066, #60a5fa66);
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .cta-input {
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            width: 100%;
+        }
+
+        .footer {
+            background: #111827;
+            color: white;
+            padding: 4rem 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .cta-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <h1>Tailored Dietary Plans for Your Health</h1>
+        <p>Optimize your health with customized meal plans designed for your symptoms</p>
+    </header>
+
+    <section class="filter-section">
+        <select class="symptom-filter" id="symptomFilter">
+            <option value="all">All Plans</option>
+            <option value="digestion">Digestive Issues</option>
+            <option value="inflammation">Inflammation</option>
+            <option value="energy">Low Energy</option>
+        </select>
+    </section>
+
+    <section class="plans-grid" id="plansGrid">
+        
+    </section>
+
+    <section class="nutrition-tips">
+        <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">Essential Nutrition Tips</h2>
+        <div class="tips-grid">
+            <div class="tip-card">
+                <i class="fas fa-tint fa-2x" style="color: var(--secondary); margin-right: 1rem;"></i>
+                <div>
+                    <h3>Stay Hydrated</h3>
+                    <p>Drink 8-10 glasses of water daily</p>
+                </div>
+            </div>
+            <div class="tip-card">
+                <i class="fas fa-carrot fa-2x" style="color: var(--primary); margin-right: 1rem;"></i>
+                <div>
+                    <h3>Eat More Greens</h3>
+                    <p>Include leafy vegetables in every meal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2 style="font-size: 2rem; margin-bottom: 1rem;">Start Your Health Journey Today</h2>
+        <form class="cta-form">
+            <input type="email" placeholder="Enter your email" class="cta-input" required>
+            <button type="submit" class="view-plan-btn">Get Your Personalized Plan</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-link">
+                <h3>Follow Us</h3>
+                <div class="social-icons" style="margin-top: 15px; cursor: pointer;">
+                    <i class="fab fa-facebook fa-lg"></i>
+                    <i class="fab fa-instagram fa-lg"></i>
+                    <i class="fab fa-twitter fa-lg"></i>
+                </div>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <p style="margin-top: 5px;"><i class="fas fa-envelope"></i> support@dietaryplans.com</p>
+            </div>
+            <div>
+                <h3>Newsletter</h3>
+                <form style="display: flex; gap: 0.5rem;">
+                    <input type="email" placeholder="Your email" class="cta-input">
+                    <button type="submit" class="view-plan-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const plans = [
+            {
+                title: 'Anti-Inflammatory Diet',
+                description: 'Natural foods that reduce inflammation and boost immunity',
+                symptoms: ['inflammation'],
+                icon: 'fa-carrot fa-2x'
+            },
+            {
+                title: 'Gut Health Plan',
+                description: 'Probiotic-rich foods to improve digestive health',
+                symptoms: ['digestion'],
+                icon: 'fa-seedling'
+            },
+            {
+                title: 'Energy Boost Diet',
+                description: 'Nutrient-dense foods to increase daily energy levels',
+                symptoms: ['energy'],
+                icon: 'fa-bolt'
+            }
+        ];
+
+        function renderPlans(symptom = 'all') {
+            const plansGrid = document.getElementById('plansGrid');
+            plansGrid.innerHTML = '';
+
+            const filteredPlans = symptom === 'all' 
+                ? plans 
+                : plans.filter(plan => plan.symptoms.includes(symptom));
+
+            filteredPlans.forEach(plan => {
+                const planCard = document.createElement('div');
+                planCard.className = 'plan-card';
+                planCard.innerHTML = `
+                    <i class="fas ${plan.icon} fa-3x plan-icon"></i>
+                    <h3 class="plan-title">${plan.title}</h3>
+                    <p class="plan-description">${plan.description}</p>
+                    <button class="view-plan-btn">View Full Plan</button>
+                `;
+                plansGrid.appendChild(planCard);
+            });
+        }
+
+        document.getElementById('symptomFilter').addEventListener('change', (e) => {
+            renderPlans(e.target.value);
+        });
+
+        renderPlans();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

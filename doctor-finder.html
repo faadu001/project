@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Specialist Near You</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary: #0284c7;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --light: #f0f9ff;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #1e293b;
+            min-height: 100vh;
+        }
+
+        .blur-effect {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .blur-1 {
+            top: -10%;
+            left: -10%;
+            width: 50%;
+            height: 50%;
+            background: rgba(2, 132, 199, 0.2);
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .blur-2 {
+            bottom: -10%;
+            right: -10%;
+            width: 60%;
+            height: 60%;
+            background: rgba(34, 197, 94, 0.2);
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(5%, 5%); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--success));
+            border-radius: 2px;
+        }
+
+        .search-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transform: translateY(0);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .search-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+        }
+
+        .search-btn {
+            background: linear-gradient(135deg, var(--primary), #0369a1);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+        }
+
+        .emergency-section {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .doctor-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .doctor-info {
+            padding: 1.5rem;
+        }
+
+        .availability-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .available {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .unavailable {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .call-btn, .book-btn {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .call-btn {
+            background: var(--success);
+            color: white;
+        }
+
+        .book-btn {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .call-btn:hover, .book-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease-out;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blur-effect blur-1"></div>
+    <div class="blur-effect blur-2"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1>Find a Specialist Near You</h1>
+            <p>Check doctor availability for your specific healthcare needs, anytime, even during emergencies.</p>
+        </header>
+
+        <div class="emergency-section">
+            <h2><i class="fas fa-phone-alt"></i> Emergency? Call Now: 911</h2>
+            <p>24/7 Emergency Support Available</p>
+        </div>
+
+        <section class="search-section">
+            <div class="search-grid">
+                <div class="input-group">
+                    <i class="fas fa-user-md"></i>
+                    <input type="text" placeholder="Search specialization...">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-location-dot"></i>
+                    <select>
+                        <option>Current Location</option>
+                        <option>Set Location</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-calendar"></i>
+                    <select>
+                        <option>Any Time</option>
+                        <option>Available Now</option>
+                        <option>Next 24 Hours</option>
+                    </select>
+                </div>
+                <button class="search-btn" onclick="searchDoctors()">
+                    <i class="fas fa-search"></i> Find Doctors
+                </button>
+            </div>
+        </section>
+
+        <div class="doctors-grid" id="doctorsGrid">
+            
+        </div>
+    </div>
+
+    <script>
+        const doctors = [
+            {
+                name: "Dr. Sarah Johnson",
+                specialty: "Cardiologist",
+                available: true,
+                nextAvailable: "Now",
+                distance: "2.5 km",
+                rating: 4.8
+            },
+            {
+                name: "Dr. Michael Chen",
+                specialty: "Pediatrician",
+                available: false,
+                nextAvailable: "Tomorrow at 9:00 AM",
+                distance: "3.8 km",
+                rating: 4.9
+            }
+        ];
+
+        function searchDoctors() {
+            const grid = document.getElementById('doctorsGrid');
+            grid.innerHTML = '';
+
+            doctors.forEach(doctor => {
+                const card = document.createElement('div');
+                card.className = 'doctor-card';
+                card.innerHTML = `
+                    <div class="doctor-info">
+                        <span class="availability-badge ${doctor.available ? 'available' : 'unavailable'}">
+                            ${doctor.available ? 'Available Now' : 'Next Available: ' + doctor.nextAvailable}
+                        </span>
+                        <h3>${doctor.name}</h3>
+                        <p>${doctor.specialty}</p>
+                        <p><i class="fas fa-location-dot"></i> ${doctor.distance}</p>
+                        <p><i class="fas fa-star"></i> ${doctor.rating}/5.0</p>
+                        <div class="action-buttons">
+                            <button class="call-btn" onclick="callDoctor('${doctor.name}')">
+                                <i class="fas fa-phone"></i> Call Now
+                            </button>
+                            <button class="book-btn" onclick="bookAppointment('${doctor.name}')">
+                                Book
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            showNotification("Found " + doctors.length + " doctors near you");
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="fas fa-bell"></i>
+                ${message}
+            `;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function callDoctor(name) {
+            showNotification(`Calling ${name}...`);
+        }
+
+        function bookAppointment(name) {
+            showNotification(`Booking appointment with ${name}...`);
+        }
+
+        searchDoctors();
+    </script>
+</body>
+</html>
